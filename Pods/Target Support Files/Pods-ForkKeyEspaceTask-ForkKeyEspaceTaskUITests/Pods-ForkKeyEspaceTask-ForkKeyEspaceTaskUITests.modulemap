@@ -1,0 +1,6 @@
+framework module Pods_ForkKeyEspaceTask_ForkKeyEspaceTaskUITests {
+  umbrella header "Pods-ForkKeyEspaceTask-ForkKeyEspaceTaskUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_ForkKeyEspaceTask {
+  umbrella header "Pods-ForkKeyEspaceTask-umbrella.h"
+
+  export *
+  module * { export * }
+}
