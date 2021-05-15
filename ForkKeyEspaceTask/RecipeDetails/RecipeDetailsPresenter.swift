@@ -38,24 +38,6 @@ class RecipeDetailsPresenter {
    
    
     
-    
-   // func codeOkSucess(){
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        if let vc = storyBoard.instantiateViewController(withIdentifier: "ChangePasswordViewController") as? ChangePasswordViewController {
-//            vc.email = (self.view?.email)!
-//            vc.code = (self.view?.codeText.text )!
-//            vc.comingFromSetting = self.view!.comingFromSetting
-//            self.view?.navigationController?.pushViewController(vc, animated: true)
-//        }
-//
-//
-//    }
-//    func messageReturn() -> String {
-//        return errorReturn
-//    }
-    //    func tokenReturn()-> String{
-    //
-    //        return token
-    //    }
+
     
 }

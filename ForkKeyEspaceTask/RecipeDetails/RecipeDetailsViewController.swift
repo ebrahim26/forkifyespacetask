@@ -12,17 +12,25 @@ class RecipeDetailsViewController: UIViewController,RecipeViewProtocol,SFSafariV
     func fetchingRecipeSuccess(recipeObject: RecipeModel) {
         recipeDetailsObject = recipeObject
         tableView.reloadData()
+        activityIndicator.stopAnimating()
+        self.tableView.isHidden = false
+        self.messageLabel.text = ""
     }
     
     func serverEerror(error: String) {
         print("error")
+        self.tableView.isHidden = true
+        self.messageLabel.text = "error from server or network connection please try agian"
     }
     
 
+    @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var recipeId = ""
     var recipeDetailsObject = RecipeModel()
+    var recipeDetailsTitle = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,11 +43,17 @@ class RecipeDetailsViewController: UIViewController,RecipeViewProtocol,SFSafariV
     func initView(){
         tableView.delegate = self
         tableView.dataSource = self
+        titleLabel.text = recipeDetailsTitle
+        activityIndicator.style = .large
+        activityIndicator.color = .black
+        activityIndicator.isHidden = true
+        self.tableView.isHidden = true
+        self.messageLabel.text = ""
         presenter = RecipeDetailsPresenter(view: self)
-        
     }
     func initPresenter(){
         presenter.getRecipeDetails(recipeId: recipeId)
+        activityIndicator.startAnimating()
     }
     @IBAction func backAction(_ sender: UIButton) {
         navigationController?.popViewController(animated: true)
@@ -94,17 +108,6 @@ extension RecipeDetailsViewController : UITableViewDataSource , UITableViewDeleg
     func numberOfSections(in tableView: UITableView) -> Int {
          return 4
     }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "image"
-        }else if  section == 1{
-            return "title"
-        }else if  section == 2 {
-            return "ingrident"
-        }else {
-            return "soure link"
-        }
-    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 3 {
         let urlString = recipeDetailsObject.source_url
@@ -116,5 +119,24 @@ extension RecipeDetailsViewController : UITableViewDataSource , UITableViewDeleg
             present(vc, animated: true)
         }
         }
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")
+        cell?.textLabel?.textColor = .gray
+        cell?.textLabel?.font =  UIFont(name:"HelveticaNeue-Bold", size: 19.0)
+        cell?.selectionStyle = .none
+        if section == 0 {
+            cell?.textLabel?.text =  "Image"
+        }else if  section == 1{
+            cell?.textLabel?.text =  "Title"
+        }else if  section == 2 {
+            cell?.textLabel?.text =  "Ingrident"
+        }else {
+            cell?.textLabel?.text =  "Soure link"
+        }
+        return cell
     }
 }

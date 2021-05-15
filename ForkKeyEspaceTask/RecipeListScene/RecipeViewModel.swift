@@ -18,38 +18,34 @@ class RecipeListViewModel {
             self.reloadTableViewClosure?()
         }
     }
-    
+    var state: State = .error
+        
+       
     var numberOfCells: Int {
         return cellViewModels.count
     }
-    
-    var isAllowSegue: Bool = false
-    
     var recipeModel: RecipeModel?
 
     var reloadTableViewClosure: (()->())?
     var showAlertClosure: (()->())?
     var updateLoadingStatus: (()->())?
-
     init( apiService: APIServiceProtocol = APIService()) {
         self.apiService = apiService
     }
     
     func initFetch(queryParamatter :String) {
-      //  state = .loading
         apiService.getRecipeList(queryParamatter :queryParamatter){ [weak self] (recipeList, error) in
             guard let self = self else {
                 return
             }
 
             guard error == nil else {
-              //  self.state = .error
-             //   self.alertMessage = error?.rawValue
+                self.state = .error
                 return
+            
             }
 
-            self.processFetchedPhoto(recipeModelList: recipeList!)
-           // self.state = .populated
+            self.processFetchedRecipe(recipeModelList: recipeList!)
         }
     }
     
@@ -62,7 +58,7 @@ class RecipeListViewModel {
         return RecipeCellViewModel(publisherName: recipeModel.publisherName, title:recipeModel.title, recipe_id: recipeModel.recipe_id, image_url: recipeModel.image_url)
     }
     
-    private func processFetchedPhoto( recipeModelList: [RecipeModel] ) {
+    private func processFetchedRecipe( recipeModelList: [RecipeModel] ) {
         self.recipeModelList = recipeModelList // Cache
         var vms = [RecipeCellViewModel]()
         for recipe in recipeModelList {

@@ -29,3 +29,6 @@ class PreviousSearchClass: Object {
             return "title"
         }
 }
+public enum State {
+    case error
+}
