@@ -7,7 +7,7 @@
 
 import Foundation
 import RealmSwift
-class RecipeModel {
+public class RecipeModel {
 var publisherName = ""
 var title = ""
 var recipe_id = ""

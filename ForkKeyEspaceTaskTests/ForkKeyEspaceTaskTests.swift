@@ -29,5 +29,12 @@ class ForkKeyEspaceTaskTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
+//    func testRecipeListMethod(){
+//        let recipeObjecte = APIService()
+//        var recipeArray = [RecipeModel]()
+//        recipeObjecte.getRecipeList(queryParamatter: "pizza") { (recipeList, error) in
+//            recipeArray = recipeList ?? []
+//        }
+//        XCTAssertEqual(recipeArray.count,27)
+//    }
 }

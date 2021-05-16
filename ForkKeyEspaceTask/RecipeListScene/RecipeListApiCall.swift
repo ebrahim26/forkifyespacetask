@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 import SwiftyJSON
-class APIService  : APIServiceProtocol {
+public class APIService  : APIServiceProtocol {
     var recipeArray = [RecipeModel]()
     func getRecipeList( queryParamatter :String,cb : @escaping ([RecipeModel]?,Error?) -> () ){
         recipeArray.removeAll()
